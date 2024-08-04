@@ -245,17 +245,9 @@ mod tests {
 
     #[test]
     fn test_rosenbrock_optimum() {
-        assert_relative_eq!(
-            rosenbrock(&[1.0_f32, 1.0_f32]),
-            0.0,
-            epsilon = f32::EPSILON
-        );
+        assert_relative_eq!(rosenbrock(&[1.0_f32, 1.0_f32]), 0.0, epsilon = f32::EPSILON);
         assert_relative_eq!(rosenbrock(&[1.0, 1.0]), 0.0, epsilon = f64::EPSILON);
-        assert_relative_eq!(
-            rosenbrock(&[1.0, 1.0, 1.0]),
-            0.0,
-            epsilon = f64::EPSILON
-        );
+        assert_relative_eq!(rosenbrock(&[1.0, 1.0, 1.0]), 0.0, epsilon = f64::EPSILON);
     }
 
     #[test]

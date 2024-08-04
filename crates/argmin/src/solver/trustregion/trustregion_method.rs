@@ -358,13 +358,7 @@ mod tests {
     #[test]
     fn test_with_eta() {
         // correct parameters
-        for eta in [
-            0.0,
-            f64::EPSILON,
-            1e-2,
-            0.125,
-            0.25 - f64::EPSILON,
-        ] {
+        for eta in [0.0, f64::EPSILON, 1e-2, 0.125, 0.25 - f64::EPSILON] {
             let cp: CauchyPoint<f64> = CauchyPoint::new();
             let tr: TrustRegion<_, f64> = TrustRegion::new(cp);
             let res = tr.with_eta(eta);

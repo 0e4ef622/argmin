@@ -109,16 +109,8 @@ mod tests {
 
     #[test]
     fn test_sphere_optimum() {
-        assert_relative_eq!(
-            sphere(&[0.0_f32, 0.0_f32]),
-            0.0,
-            epsilon = f32::EPSILON
-        );
-        assert_relative_eq!(
-            sphere(&[0.0_f64, 0.0_f64]),
-            0.0,
-            epsilon = f64::EPSILON
-        );
+        assert_relative_eq!(sphere(&[0.0_f32, 0.0_f32]), 0.0, epsilon = f32::EPSILON);
+        assert_relative_eq!(sphere(&[0.0_f64, 0.0_f64]), 0.0, epsilon = f64::EPSILON);
     }
 
     proptest! {
