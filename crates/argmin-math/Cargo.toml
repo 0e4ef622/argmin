@@ -15,10 +15,17 @@ exclude = []
 
 [dependencies]
 # nalgebra
+nalgebra_0_33 = { package = "nalgebra", version = "0.33", optional = true }
 nalgebra_0_32 = { package = "nalgebra", version = "0.32", optional = true }
 nalgebra_0_31 = { package = "nalgebra", version = "0.31", optional = true }
 nalgebra_0_30 = { package = "nalgebra", version = "0.30", optional = true }
 nalgebra_0_29 = { package = "nalgebra", version = "0.29", optional = true }
+
+# simba
+simba_0_6 = { package = "simba", version = "0.6", optional = true }
+simba_0_7 = { package = "simba", version = "0.7", optional = true }
+simba_0_8 = { package = "simba", version = "0.8", optional = true }
+simba_0_9 = { package = "simba", version = "0.9", optional = true }
 
 # ndarray
 ## v0.15
@@ -59,11 +66,12 @@ vec = ["primitives", "num-complex_0_4"]
 
 # nalgebra
 nalgebra_all = ["primitives"]
-nalgebra_latest = ["nalgebra_v0_32"]
-nalgebra_v0_32 = ["nalgebra_0_32", "num-complex_0_4", "nalgebra_all"]
-nalgebra_v0_31 = ["nalgebra_0_31", "num-complex_0_4", "nalgebra_all"]
-nalgebra_v0_30 = ["nalgebra_0_30", "num-complex_0_4", "nalgebra_all"]
-nalgebra_v0_29 = ["nalgebra_0_29", "num-complex_0_4", "nalgebra_all"]
+nalgebra_latest = ["nalgebra_v0_33"]
+nalgebra_v0_33 = ["nalgebra_0_33", "num-complex_0_4", "nalgebra_all", "simba_0_9"]
+nalgebra_v0_32 = ["nalgebra_0_32", "num-complex_0_4", "nalgebra_all", "simba_0_8"]
+nalgebra_v0_31 = ["nalgebra_0_31", "num-complex_0_4", "nalgebra_all", "simba_0_7"]
+nalgebra_v0_30 = ["nalgebra_0_30", "num-complex_0_4", "nalgebra_all", "simba_0_7"]
+nalgebra_v0_29 = ["nalgebra_0_29", "num-complex_0_4", "nalgebra_all", "simba_0_6"]
 
 # ndarray
 ndarray_all = ["primitives"]

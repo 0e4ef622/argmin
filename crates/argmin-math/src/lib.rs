@@ -151,14 +151,69 @@
 #![deny(clippy::float_cmp)]
 
 cfg_if::cfg_if! {
-    if #[cfg(feature = "nalgebra_0_32")] {
+    if #[cfg(feature = "nalgebra_0_33")] {
+        extern crate nalgebra_0_33 as nalgebra;
+        trait Allocator<T, R, C = nalgebra::U1>: nalgebra::allocator::Allocator<R, C>
+        where
+            R: nalgebra::Dim,
+            C: nalgebra::Dim,
+        {}
+        impl<T, R, C, U> Allocator<T, R, C> for U
+        where
+            U: nalgebra::allocator::Allocator<R, C>,
+            R: nalgebra::Dim,
+            C: nalgebra::Dim,
+        {}
+        trait SameShapeAllocator<T, R1, C1, R2, C2>: nalgebra::allocator::SameShapeAllocator<R1, C1, R2, C2>
+        where
+            R1: nalgebra::Dim,
+            C1: nalgebra::Dim,
+            R2: nalgebra::Dim,
+            C2: nalgebra::Dim,
+            nalgebra::constraint::ShapeConstraint: nalgebra::constraint::SameNumberOfRows<R1,R2> + nalgebra::constraint::SameNumberOfColumns<C1,C2>,
+        {}
+        impl<T, R1, C1, R2, C2, U> SameShapeAllocator<T, R1, C1, R2, C2> for U
+        where
+            U: nalgebra::allocator::SameShapeAllocator<R1, C1, R2, C2>,
+            R1: nalgebra::Dim,
+            C1: nalgebra::Dim,
+            R2: nalgebra::Dim,
+            C2: nalgebra::Dim,
+            nalgebra::constraint::ShapeConstraint: nalgebra::constraint::SameNumberOfRows<R1,R2> + nalgebra::constraint::SameNumberOfColumns<C1,C2>,
+        {}
+    } else if #[cfg(feature = "nalgebra_0_32")] {
         extern crate nalgebra_0_32 as nalgebra;
+        use nalgebra::allocator::{Allocator, SameShapeAllocator};
     } else if #[cfg(feature = "nalgebra_0_31")] {
         extern crate nalgebra_0_31 as nalgebra;
+        use nalgebra::allocator::{Allocator, SameShapeAllocator};
     } else if #[cfg(feature = "nalgebra_0_30")] {
         extern crate nalgebra_0_30 as nalgebra;
+        use nalgebra::allocator::{Allocator, SameShapeAllocator};
     } else if #[cfg(feature = "nalgebra_0_29")] {
         extern crate nalgebra_0_29 as nalgebra;
+        use nalgebra::allocator::{Allocator, SameShapeAllocator};
+    }
+}
+
+cfg_if::cfg_if! {
+    if #[cfg(feature = "simba_0_9")] {
+        extern crate simba_0_9 as simba;
+        use simba::scalar::{
+            ClosedAddAssign as ClosedAdd,
+            ClosedSubAssign as ClosedSub,
+            ClosedDivAssign as ClosedDiv,
+            ClosedMulAssign as ClosedMul,
+        };
+    } else if #[cfg(feature = "simba_0_8")] {
+        extern crate simba_0_8 as simba;
+        use simba::scalar::{ClosedAdd, ClosedSub, ClosedDiv, ClosedMul};
+    } else if #[cfg(feature = "simba_0_7")] {
+        extern crate simba_0_7 as simba;
+        use simba::scalar::{ClosedAdd, ClosedSub, ClosedDiv, ClosedMul};
+    } else if #[cfg(feature = "simba_0_6")] {
+        extern crate simba_0_6 as simba;
+        use simba::scalar::{ClosedAdd, ClosedSub, ClosedDiv, ClosedMul};
     }
 }
 
