@@ -5,9 +5,9 @@
 // http://opensource.org/licenses/MIT>, at your option. This file may not be
 // copied, modified, or distributed except according to those terms.
 
-use crate::{ArgminInv, Error};
+use crate::{Allocator, ArgminInv, Error};
 use nalgebra::{
-    base::{allocator::Allocator, dimension::Dim, storage::Storage},
+    base::{dimension::Dim, storage::Storage},
     ComplexField, DefaultAllocator, OMatrix, SquareMatrix,
 };
 use std::fmt;
@@ -60,7 +60,7 @@ mod tests {
                     let res = <Matrix2<$t> as ArgminInv<Matrix2<$t>>>::inv(&a).unwrap();
                     for i in 0..2 {
                         for j in 0..2 {
-                            assert_relative_eq!(res[(i, j)], target[(i, j)], epsilon = std::$t::EPSILON);
+                            assert_relative_eq!(res[(i, j)], target[(i, j)], epsilon = $t::EPSILON);
                         }
                     }
                 }

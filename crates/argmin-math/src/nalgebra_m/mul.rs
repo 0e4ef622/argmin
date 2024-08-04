@@ -5,17 +5,17 @@
 // http://opensource.org/licenses/MIT>, at your option. This file may not be
 // copied, modified, or distributed except according to those terms.
 
-use crate::ArgminMul;
+use crate::{Allocator, ArgminMul, SameShapeAllocator};
 
+use crate::ClosedMul;
 use nalgebra::{
     base::{
-        allocator::{Allocator, SameShapeAllocator},
         constraint::{SameNumberOfColumns, SameNumberOfRows, ShapeConstraint},
         dimension::Dim,
         storage::Storage,
         MatrixSum, Scalar,
     },
-    ClosedMul, DefaultAllocator, Matrix, OMatrix,
+    DefaultAllocator, Matrix, OMatrix,
 };
 
 impl<N, R, C, S> ArgminMul<N, OMatrix<N, R, C>> for Matrix<N, R, C, S>
@@ -82,7 +82,7 @@ mod tests {
                     let target = Vector3::new(2 as $t, 8 as $t, 16 as $t);
                     let res = <Vector3<$t> as ArgminMul<$t, Vector3<$t>>>::mul(&a, &b);
                     for i in 0..3 {
-                        assert_relative_eq!(target[i] as f64, res[i] as f64, epsilon = std::f64::EPSILON);
+                        assert_relative_eq!(target[i] as f64, res[i] as f64, epsilon = f64::EPSILON);
                     }
                 }
             }
@@ -95,7 +95,7 @@ mod tests {
                     let target = Vector3::new(2 as $t, 8 as $t, 16 as $t);
                     let res = <$t as ArgminMul<Vector3<$t>, Vector3<$t>>>::mul(&b, &a);
                     for i in 0..3 {
-                        assert_relative_eq!(target[i] as f64, res[i] as f64, epsilon = std::f64::EPSILON);
+                        assert_relative_eq!(target[i] as f64, res[i] as f64, epsilon = f64::EPSILON);
                     }
                 }
             }
@@ -108,7 +108,7 @@ mod tests {
                     let target = Vector3::new(2 as $t, 12 as $t, 32 as $t);
                     let res = <Vector3<$t> as ArgminMul<Vector3<$t>, Vector3<$t>>>::mul(&a, &b);
                     for i in 0..3 {
-                        assert_relative_eq!(target[i] as f64, res[i] as f64, epsilon = std::f64::EPSILON);
+                        assert_relative_eq!(target[i] as f64, res[i] as f64, epsilon = f64::EPSILON);
                     }
                 }
             }
@@ -131,7 +131,7 @@ mod tests {
                     let res = <Matrix2x3<$t> as ArgminMul<Matrix2x3<$t>, Matrix2x3<$t>>>::mul(&a, &b);
                     for i in 0..3 {
                         for j in 0..2 {
-                            assert_relative_eq!(target[(j, i)] as f64, res[(j, i)] as f64, epsilon = std::f64::EPSILON);
+                            assert_relative_eq!(target[(j, i)] as f64, res[(j, i)] as f64, epsilon = f64::EPSILON);
                         }
                     }
                 }
@@ -152,7 +152,7 @@ mod tests {
                     let res = <Matrix2x3<$t> as ArgminMul<$t, Matrix2x3<$t>>>::mul(&a, &b);
                     for i in 0..3 {
                         for j in 0..2 {
-                            assert_relative_eq!(target[(j, i)] as f64, res[(j, i)] as f64, epsilon = std::f64::EPSILON);
+                            assert_relative_eq!(target[(j, i)] as f64, res[(j, i)] as f64, epsilon = f64::EPSILON);
                         }
                     }
                 }
@@ -173,7 +173,7 @@ mod tests {
                     let res = <$t as ArgminMul<Matrix2x3<$t>, Matrix2x3<$t>>>::mul(&a, &b);
                     for i in 0..3 {
                         for j in 0..2 {
-                            assert_relative_eq!(target[(j, i)] as f64, res[(j, i)] as f64, epsilon = std::f64::EPSILON);
+                            assert_relative_eq!(target[(j, i)] as f64, res[(j, i)] as f64, epsilon = f64::EPSILON);
                         }
                     }
                 }

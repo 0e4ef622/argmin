@@ -8,10 +8,10 @@
 // Note: This is not really the preferred way I think. Maybe this should also be implemented for
 // ArrayViews, which would probably make it more efficient.
 
-use crate::ArgminTranspose;
+use crate::{Allocator, ArgminTranspose};
 
 use nalgebra::{
-    base::{allocator::Allocator, dimension::Dim, storage::Storage, Scalar},
+    base::{dimension::Dim, storage::Storage, Scalar},
     DefaultAllocator, Matrix, OMatrix,
 };
 
@@ -45,7 +45,7 @@ mod tests {
                     let target = RowVector2::new(1 as $t, 4 as $t);
                     let res = <Vector2<$t> as ArgminTranspose<RowVector2<$t>>>::t(a);
                     for i in 0..2 {
-                        assert_relative_eq!(target[i] as f64, res[i] as f64, epsilon = std::f64::EPSILON);
+                        assert_relative_eq!(target[i] as f64, res[i] as f64, epsilon = f64::EPSILON);
                     }
                 }
             }
@@ -64,7 +64,7 @@ mod tests {
                     let res = <Matrix2<$t> as ArgminTranspose<Matrix2<$t>>>::t(a);
                     for i in 0..2 {
                         for j in 0..2 {
-                            assert_relative_eq!(target[(i, j)] as f64, res[(i, j)] as f64, epsilon = std::f64::EPSILON);
+                            assert_relative_eq!(target[(i, j)] as f64, res[(i, j)] as f64, epsilon = f64::EPSILON);
                         }
                     }
                 }
@@ -85,7 +85,7 @@ mod tests {
                     let res = <Matrix3x2<$t> as ArgminTranspose<Matrix2x3<$t>>>::t(a);
                     for i in 0..2 {
                         for j in 0..3 {
-                            assert_relative_eq!(target[(i, j)] as f64, res[(i, j)] as f64, epsilon = std::f64::EPSILON);
+                            assert_relative_eq!(target[(i, j)] as f64, res[(i, j)] as f64, epsilon = f64::EPSILON);
                         }
                     }
                 }

@@ -5,14 +5,11 @@
 // http://opensource.org/licenses/MIT>, at your option. This file may not be
 // copied, modified, or distributed except according to those terms.
 
-use crate::{ArgminZero, ArgminZeroLike};
+use crate::{Allocator, ArgminZero, ArgminZeroLike};
 
 use num_traits::Zero;
 
-use nalgebra::{
-    base::{allocator::Allocator, dimension::Dim},
-    DefaultAllocator, OMatrix, Scalar,
-};
+use nalgebra::{base::dimension::Dim, DefaultAllocator, OMatrix, Scalar};
 
 impl<N, R, C> ArgminZeroLike for OMatrix<N, R, C>
 where
@@ -50,7 +47,7 @@ mod tests {
                 fn [<test_zero_like_2_ $t>]() {
                     let a = Vector4::new(42 as $t, 42 as $t, 42 as $t, 42 as $t).zero_like();
                     for i in 0..4 {
-                        assert_relative_eq!(0 as f64, a[i] as f64, epsilon = std::f64::EPSILON);
+                        assert_relative_eq!(0 as f64, a[i] as f64, epsilon = f64::EPSILON);
                     }
                 }
             }
@@ -74,7 +71,7 @@ mod tests {
 
                     for i in 0..2 {
                         for j in 0..2 {
-                            assert_relative_eq!(0 as f64, a[(i, j)] as f64, epsilon = std::f64::EPSILON);
+                            assert_relative_eq!(0 as f64, a[(i, j)] as f64, epsilon = f64::EPSILON);
                         }
                     }
                 }

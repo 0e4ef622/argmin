@@ -5,12 +5,9 @@
 // http://opensource.org/licenses/MIT>, at your option. This file may not be
 // copied, modified, or distributed except according to those terms.
 
-use crate::ArgminConj;
+use crate::{Allocator, ArgminConj};
 
-use nalgebra::{
-    base::{allocator::Allocator, dimension::Dim},
-    DefaultAllocator, OMatrix, SimdComplexField,
-};
+use nalgebra::{base::dimension::Dim, DefaultAllocator, OMatrix, SimdComplexField};
 
 impl<N, R, C> ArgminConj for OMatrix<N, R, C>
 where
@@ -50,8 +47,8 @@ mod tests {
                     );
                     let res = <Vector3<Complex<$t>> as ArgminConj>::conj(&a);
                     for i in 0..3 {
-                        assert_relative_eq!(b[i].re, res[i].re, epsilon = std::$t::EPSILON);
-                        assert_relative_eq!(b[i].im, res[i].im, epsilon = std::$t::EPSILON);
+                        assert_relative_eq!(b[i].re, res[i].re, epsilon = $t::EPSILON);
+                        assert_relative_eq!(b[i].im, res[i].im, epsilon = $t::EPSILON);
                     }
                 }
             }
@@ -63,7 +60,7 @@ mod tests {
                     let b = Vector3::new(1 as $t, 4 as $t, 8 as $t);
                     let res = <Vector3<$t> as ArgminConj>::conj(&a);
                     for i in 0..3 {
-                        assert_relative_eq!(b[i], res[i], epsilon = std::$t::EPSILON);
+                        assert_relative_eq!(b[i], res[i], epsilon = $t::EPSILON);
                     }
                 }
             }

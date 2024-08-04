@@ -5,14 +5,11 @@
 // http://opensource.org/licenses/MIT>, at your option. This file may not be
 // copied, modified, or distributed except according to those terms.
 
-use crate::ArgminEye;
+use crate::{Allocator, ArgminEye};
 
 use num_traits::{One, Zero};
 
-use nalgebra::{
-    base::{allocator::Allocator, dimension::Dim},
-    DefaultAllocator, OMatrix, Scalar,
-};
+use nalgebra::{base::dimension::Dim, DefaultAllocator, OMatrix, Scalar};
 
 impl<N, R, C> ArgminEye for OMatrix<N, R, C>
 where
@@ -53,7 +50,7 @@ mod tests {
                     );
                     for i in 0..3 {
                         for j in 0..3 {
-                            assert_relative_eq!(res[(i, j)] as f64, e[(i, j)] as f64, epsilon = std::f64::EPSILON);
+                            assert_relative_eq!(res[(i, j)] as f64, e[(i, j)] as f64, epsilon = f64::EPSILON);
                         }
                     }
                 }
@@ -75,7 +72,7 @@ mod tests {
                     );
                     for i in 0..3 {
                         for j in 0..3 {
-                            assert_relative_eq!(res[(i, j)] as f64, e[(i, j)] as f64, epsilon = std::f64::EPSILON);
+                            assert_relative_eq!(res[(i, j)] as f64, e[(i, j)] as f64, epsilon = f64::EPSILON);
                         }
                     }
                 }
